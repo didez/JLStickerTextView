@@ -358,21 +358,19 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             let angleDiff = deltaAngle! - ang
             transform = CGAffineTransform(rotationAngle: -angleDiff)
             layoutIfNeeded()
-
             // Finding scale between current touchPoint and previous touchPoint
             let scale = sqrtf(Float(CalculateFunctions.CGpointGetDistance(center, point2: touchLocation!)) / Float(initialDistance!))
             let scaleRect = CalculateFunctions.CGRectScale(initialBounds!, wScale: CGFloat(scale), hScale: CGFloat(scale))
 
-            if scaleRect.size.width >= (1 + globalInset! * 2), scaleRect.size.height >= (1 + globalInset! * 2), labelTextView?.text != "" {
+            if scaleRect.size.width >= (1 + globalInset! * 2), scaleRect.size.height >= (1 + globalInset! * 2), (labelTextView?.text != "" || imageView?.image != nil) {
                 //  if fontSize < 100 || CGRectGetWidth(scaleRect) < CGRectGetWidth(self.bounds) {
-                if scale < 1, (labelTextView?.fontSize ?? 0) <= 9 {} else {
+                if labelTextView?.text != nil, scale < 1, (labelTextView?.fontSize ?? 0) <= 9 {} else {
                     adjustFontSizeToFillRect(scaleRect, view: self)
                     bounds = scaleRect
                     adjustsWidthToFillItsContens(self)
                     refresh()
                 }
             }
-
             if let delegate: JLStickerLabelViewDelegate = delegate {
                 if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidChangeEditing(_:))) {
                     delegate.labelViewDidChangeEditing!(self)
