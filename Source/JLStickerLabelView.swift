@@ -286,21 +286,13 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
 
     @objc func closeTap(_: UITapGestureRecognizer?) {
         removeFromSuperview()
-
-        if let delegate: JLStickerLabelViewDelegate = delegate {
-            if delegate.responds(to: #selector(JLStickerLabelViewDelegate.labelViewDidClose(_:))) {
-                delegate.labelViewDidClose!(self)
-            }
-        }
+        delegate?.labelViewDidClose?(self)
     }
 
     @objc func moveGesture(_ recognizer: UIPanGestureRecognizer) {
         if !isShowingEditingHandles {
             showEditingHandles()
-
-            if let delegate: JLStickerLabelViewDelegate = delegate {
-                delegate.labelViewDidSelected!(self)
-            }
+            delegate?.labelViewDidSelected?(self)
         }
 
         touchLocation = recognizer.location(in: superview)

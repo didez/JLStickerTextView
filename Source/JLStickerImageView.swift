@@ -12,7 +12,11 @@ public class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
     public var currentlyEditingLabel: JLStickerLabelView!
     fileprivate var labels: [JLStickerLabelView]!
     private var renderedView: UIView!
-
+    public var isEditing: Bool {
+        return currentlyEditingLabel != nil
+            && labels.contains(currentlyEditingLabel)
+    }
+    
     fileprivate lazy var tapOutsideGestureRecognizer: UITapGestureRecognizer! = {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(JLStickerImageView.tapOutside))
         tapGesture.delegate = self
@@ -155,7 +159,9 @@ extension JLStickerImageView: JLStickerLabelViewDelegate {
         // labels.removeObject(label)
     }
 
-    public func labelViewDidClose(_: JLStickerLabelView) {}
+    public func labelViewDidClose(_ label: JLStickerLabelView) {
+        labels.removeAll { $0 == label }
+    }
 
     public func labelViewDidShowEditingHandles(_ label: JLStickerLabelView) {
         currentlyEditingLabel = label
