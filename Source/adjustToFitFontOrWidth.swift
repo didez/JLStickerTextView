@@ -11,7 +11,7 @@ import UIKit
 
 protocol adjustFontSizeToFillRectProtocol {
     func adjustFontSizeToFillRect(_ newBounds: CGRect, view: JLStickerLabelView) -> Void
-    func adjustsWidthToFillItsContens(_ view: JLStickerLabelView) -> Void
+    func adjustsWidthToFillItsContens(_ view: JLStickerLabelView?) -> Void
 }
 
 extension adjustFontSizeToFillRectProtocol {
@@ -61,21 +61,21 @@ extension adjustFontSizeToFillRectProtocol {
         return
     }
 
-    func adjustsWidthToFillItsContens(_ view: JLStickerLabelView) {
-        guard let labelTextView = view.labelTextView else {
-            return
-        }
+    func adjustsWidthToFillItsContens(_ view: JLStickerLabelView?) {
+        guard let view = view,
+            let labelTextView = view.labelTextView else { return }
 
         let attributedText = labelTextView.attributedText
 
         let recSize = attributedText?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
 
-        let w1 = (ceilf(Float((recSize?.size.width)!)) + 24 < 50) ? 50 : CGFloat(ceilf(Float((recSize?.size.width)!)) + 24)
-        let h1 = (ceilf(Float((recSize?.size.height)!)) + 24 < 50) ? 50 : CGFloat(ceilf(Float((recSize?.size.height)!)) + 24)
+        let maxWidth: CGFloat = 50
+        let w1 = (ceilf(Float((recSize?.size.width)!)) + 24 < Float(maxWidth)) ? maxWidth : CGFloat(ceilf(Float((recSize?.size.width)!)) + 24)
+        let h1 = (ceilf(Float((recSize?.size.height)!)) + 24 < Float(maxWidth)) ? maxWidth : CGFloat(ceilf(Float((recSize?.size.height)!)) + 24)
 
         var viewFrame = view.bounds
         viewFrame.size.width = w1 + 24
-        viewFrame.size.height = h1 + 18
+        viewFrame.size.height = h1 + 16
         view.bounds = viewFrame
     }
 }
