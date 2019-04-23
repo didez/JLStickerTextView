@@ -332,6 +332,14 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             if scaleRect.size.width >= (1 + globalInset! * 4), scaleRect.size.height >= (1 + globalInset! * 4), (labelTextView?.text != "" || imageView?.image != nil) {
                 //  if fontSize < 100 || CGRectGetWidth(scaleRect) < CGRectGetWidth(self.bounds) {
                 if labelTextView?.text != nil, scale < 1, (labelTextView?.fontSize ?? 0) <= 9 {} else {
+                    if imageView?.image != nil && scaleRect.size.width < 100 {
+                        bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
+                        return
+                    }
+                    if imageView?.image != nil && scaleRect.size.width > UIScreen.main.bounds.size.width {
+                        bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.width)
+                        return
+                    }
                     adjustFontSizeToFillRect(scaleRect, view: self)
                     bounds = scaleRect
                     adjustsWidthToFillItsContens(self)
@@ -368,10 +376,17 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             // Finding scale between current touchPoint and previous touchPoint
             let scale = sqrtf(Float(CalculateFunctions.CGpointGetDistance(center, point2: touchLocation!)) / Float(initialDistance!))
             let scaleRect = CalculateFunctions.CGRectScale(initialBounds!, wScale: CGFloat(scale), hScale: CGFloat(scale))
-            debugPrint(scaleRect)
             if scaleRect.size.width >= (1 + globalInset! * 4), scaleRect.size.height >= (1 + globalInset! * 4), (labelTextView?.text != "" || imageView?.image != nil) {
                 //  if fontSize < 100 || CGRectGetWidth(scaleRect) < CGRectGetWidth(self.bounds) {
                 if labelTextView?.text != nil, scale < 1, (labelTextView?.fontSize ?? 0) <= 9 {} else {
+                    if imageView?.image != nil && scaleRect.size.width < 100 {
+                        bounds = CGRect(x: 0, y: 0, width: 100, height: 100)
+                        return
+                    }
+                    if imageView?.image != nil && scaleRect.size.width > UIScreen.main.bounds.size.width {
+                        bounds = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.width)
+                        return
+                    }
                     adjustFontSizeToFillRect(scaleRect, view: self)
                     bounds = scaleRect
                     adjustsWidthToFillItsContens(self)
@@ -435,7 +450,7 @@ extension JLStickerLabelView {
     }
 
     private func setupImageView() {
-        imageView = UIImageView(frame: bounds.insetBy(dx: globalInset!, dy: globalInset!))
+        imageView = UIImageView(frame: bounds.insetBy(dx: globalInset! * 2, dy: globalInset! * 2))
         imageView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         imageView?.contentMode = .scaleAspectFit
         imageView?.clipsToBounds = true
