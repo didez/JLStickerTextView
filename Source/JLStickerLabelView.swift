@@ -51,7 +51,7 @@ public class JLStickerLabelView: UIView {
 
     var delegate: JLStickerLabelViewDelegate?
 
-    fileprivate var globalInset: CGFloat?
+    fileprivate var globalInset: CGFloat = 10
 
     fileprivate var initialBounds: CGRect?
     fileprivate var initialDistance: CGFloat?
@@ -192,7 +192,6 @@ public class JLStickerLabelView: UIView {
     }
 
     func setupTextLabel() {
-        globalInset = 10
 
         backgroundColor = UIColor.clear
         autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -209,7 +208,6 @@ public class JLStickerLabelView: UIView {
     }
 
     func setupImageLabel() {
-        globalInset = 10
 
         backgroundColor = UIColor.clear
         autoresizingMask = [.flexibleHeight, .flexibleWidth]
@@ -329,7 +327,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
         case .changed:
             let scaleRect = CalculateFunctions.CGRectScale(initialBounds!, wScale: CGFloat(scale), hScale: CGFloat(scale))
             debugPrint(scaleRect)
-            if scaleRect.size.width >= (1 + globalInset! * 4), scaleRect.size.height >= (1 + globalInset! * 4), (labelTextView?.text != "" || imageView?.image != nil) {
+            if scaleRect.size.width >= (1 + globalInset * 4), scaleRect.size.height >= (1 + globalInset * 4), (labelTextView?.text != "" || imageView?.image != nil) {
                 //  if fontSize < 100 || CGRectGetWidth(scaleRect) < CGRectGetWidth(self.bounds) {
                 if labelTextView?.text != nil, scale < 1, (labelTextView?.fontSize ?? 0) <= 9 {} else {
                     if imageView?.image != nil && scaleRect.size.width < 100 {
@@ -376,7 +374,14 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             // Finding scale between current touchPoint and previous touchPoint
             let scale = sqrtf(Float(CalculateFunctions.CGpointGetDistance(center, point2: touchLocation!)) / Float(initialDistance!))
             let scaleRect = CalculateFunctions.CGRectScale(initialBounds!, wScale: CGFloat(scale), hScale: CGFloat(scale))
-            if scaleRect.size.width >= (1 + globalInset! * 4), scaleRect.size.height >= (1 + globalInset! * 4), (labelTextView?.text != "" || imageView?.image != nil) {
+            
+//            print("bounds\(bounds)")
+//            print("ang\(ang)")
+//            print("angleDiff\(angleDiff)")
+//            print("scale\(scale)")
+//            print("scaleRect\(scaleRect)\n")
+            
+            if scaleRect.size.width >= (1 + globalInset * 4), scaleRect.size.height >= (1 + globalInset * 4), (labelTextView?.text != "" || imageView?.image != nil) {
                 //  if fontSize < 100 || CGRectGetWidth(scaleRect) < CGRectGetWidth(self.bounds) {
                 if labelTextView?.text != nil, scale < 1, (labelTextView?.fontSize ?? 0) <= 9 {} else {
                     if imageView?.image != nil && scaleRect.size.width < 100 {
@@ -412,7 +417,7 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
 
 extension JLStickerLabelView {
     private func setupLabelTextView() {
-        labelTextView = JLAttributedTextView(frame: bounds.insetBy(dx: globalInset! * 2 - 1, dy: globalInset! * 2 - 1))
+        labelTextView = JLAttributedTextView(frame: bounds.insetBy(dx: globalInset * 2 - 1, dy: globalInset * 2 - 1))
         labelTextView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         labelTextView?.clipsToBounds = true
         labelTextView?.delegate = self
@@ -432,7 +437,7 @@ extension JLStickerLabelView {
     }
 
     private func setupCloseAndRotateView() {
-        closeView = UIImageView(frame: CGRect(x: globalInset!, y: globalInset!, width: globalInset! * 2, height: globalInset! * 2))
+        closeView = UIImageView(frame: CGRect(x: globalInset, y: globalInset, width: globalInset * 2, height: globalInset * 2))
         closeView?.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
         closeView?.contentMode = .center
         closeView?.clipsToBounds = true
@@ -440,7 +445,7 @@ extension JLStickerLabelView {
         closeView?.isUserInteractionEnabled = true
         addSubview(closeView!)
 
-        rotateView = UIImageView(frame: CGRect(x: bounds.size.width - globalInset! * 3, y: bounds.size.height - globalInset! * 3, width: globalInset! * 2, height: globalInset! * 2))
+        rotateView = UIImageView(frame: CGRect(x: bounds.size.width - globalInset * 3, y: bounds.size.height - globalInset * 3, width: globalInset * 2, height: globalInset * 2))
         rotateView?.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
         rotateView?.backgroundColor = UIColor.clear
         rotateView?.clipsToBounds = true
@@ -450,7 +455,7 @@ extension JLStickerLabelView {
     }
 
     private func setupImageView() {
-        imageView = UIImageView(frame: bounds.insetBy(dx: globalInset! * 2, dy: globalInset! * 2))
+        imageView = UIImageView(frame: bounds.insetBy(dx: globalInset * 2, dy: globalInset * 2))
         imageView?.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         imageView?.contentMode = .scaleAspectFit
         imageView?.clipsToBounds = true

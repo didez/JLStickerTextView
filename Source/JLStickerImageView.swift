@@ -17,7 +17,7 @@ public class JLStickerImageView: UIImageView, UIGestureRecognizerDelegate {
         return labels.contains(current)
     }
     
-    fileprivate lazy var tapOutsideGestureRecognizer: UITapGestureRecognizer! = {
+    fileprivate lazy var tapOutsideGestureRecognizer: UITapGestureRecognizer = {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(JLStickerImageView.tapOutside))
         tapGesture.delegate = self
         return tapGesture
