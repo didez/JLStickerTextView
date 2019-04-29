@@ -36,7 +36,7 @@ public class JLAttributedTextView: UITextView {
         }
     }
 
-    public var fontSize: CGFloat = 30 {
+    public var fontSize: CGFloat = 50 {
         didSet {
             let font = UIFont(name: fontName, size: fontSize)
             textAttributes[NSAttributedString.Key.font] = font

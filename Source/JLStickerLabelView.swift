@@ -187,7 +187,7 @@ public class JLStickerLabelView: UIView {
         showsContentShadow = true
 
         showEditingHandles()
-
+        
         adjustsWidthToFillItsContens(self)
     }
 
@@ -221,8 +221,8 @@ public class JLStickerLabelView: UIView {
         setup()
 
         var viewFrame = bounds
-        viewFrame.size.width = 100
-        viewFrame.size.height = 100
+        viewFrame.size.width = 200
+        viewFrame.size.height = 200
         bounds = viewFrame
     }
 }
@@ -439,19 +439,21 @@ extension JLStickerLabelView {
     private func setupCloseAndRotateView() {
         closeView = UIImageView(frame: CGRect(x: globalInset, y: globalInset, width: globalInset * 2, height: globalInset * 2))
         closeView?.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
-        closeView?.contentMode = .center
+//        closeView?.contentMode = .center
         closeView?.clipsToBounds = true
         closeView?.backgroundColor = UIColor.clear
         closeView?.isUserInteractionEnabled = true
         addSubview(closeView!)
+//        closeView?.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
 
         rotateView = UIImageView(frame: CGRect(x: bounds.size.width - globalInset * 3, y: bounds.size.height - globalInset * 3, width: globalInset * 2, height: globalInset * 2))
         rotateView?.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
         rotateView?.backgroundColor = UIColor.clear
         rotateView?.clipsToBounds = true
-        rotateView?.contentMode = .center
+//        rotateView?.contentMode = .center
         rotateView?.isUserInteractionEnabled = true
         addSubview(rotateView!)
+//        rotateView?.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
     }
 
     private func setupImageView() {

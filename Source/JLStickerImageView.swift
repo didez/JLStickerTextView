@@ -54,10 +54,11 @@ extension JLStickerImageView {
             label.hideEditingHandlers()
         }
 
-        let labelFrame = CGRect(x: bounds.midX - 50,
-                                y: bounds.midY - 25,
-                                width: 100, height: 50)
+        let labelFrame = CGRect(x: bounds.midX - 100,
+                                y: bounds.midY - 50,
+                                width: 200, height: 100)
         let labelView = JLStickerLabelView(frame: labelFrame)
+        
         labelView.setupTextLabel()
         labelView.delegate = self
         labelView.showsContentShadow = false
@@ -76,9 +77,9 @@ extension JLStickerImageView {
             label.hideEditingHandlers()
         }
 
-        let labelFrame = CGRect(x: bounds.midX - 50,
-                                y: bounds.midY - 50,
-                                width: 100, height: 100)
+        let labelFrame = CGRect(x: bounds.midX - 100,
+                                y: bounds.midY - 100,
+                                width: 200, height: 200)
         let labelView = JLStickerLabelView(frame: labelFrame)
         labelView.setupImageLabel()
         labelView.showsContentShadow = false

@@ -21,7 +21,7 @@ extension adjustFontSizeToFillRectProtocol {
         }
         var mid: CGFloat = 0.0
         var stickerMaximumFontSize: CGFloat = 200.0
-        var stickerMinimumFontSize: CGFloat = 15.0
+        var stickerMinimumFontSize: CGFloat = 30.0
         var difference: CGFloat = 0.0
 
         var tempFont = UIFont(name: labelTextView.fontName, size: labelTextView.fontSize)
@@ -66,9 +66,7 @@ extension adjustFontSizeToFillRectProtocol {
             let labelTextView = view.labelTextView else { return }
 
         let attributedText = labelTextView.attributedText
-
         let recSize = attributedText?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude), options: .usesLineFragmentOrigin, context: nil)
-
         let maxWidth: CGFloat = 50
         let w1 = (ceilf(Float((recSize?.size.width)!)) + 24 < Float(maxWidth)) ? maxWidth : CGFloat(ceilf(Float((recSize?.size.width)!)) + 24)
         let h1 = (ceilf(Float((recSize?.size.height)!)) + 24 < Float(maxWidth)) ? maxWidth : CGFloat(ceilf(Float((recSize?.size.height)!)) + 24)
