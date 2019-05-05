@@ -437,7 +437,7 @@ extension JLStickerLabelView {
     }
 
     private func setupCloseAndRotateView() {
-        closeView = UIImageView(frame: CGRect(x: 0, y: 0, width: globalInset * 4, height: globalInset * 4))
+        closeView = UIImageView(frame: CGRect(x: globalInset, y: globalInset, width: globalInset * 2, height: globalInset * 2))
         closeView?.autoresizingMask = [.flexibleRightMargin, .flexibleBottomMargin]
 //        closeView?.contentMode = .center
         closeView?.clipsToBounds = true
@@ -446,7 +446,7 @@ extension JLStickerLabelView {
         addSubview(closeView!)
 //        closeView?.transform = CGAffineTransform(scaleX: 2.0, y: 2.0)
 
-        rotateView = UIImageView(frame: CGRect(x: bounds.size.width - globalInset * 4, y: bounds.size.height - globalInset * 4, width: globalInset * 4, height: globalInset * 4))
+        rotateView = UIImageView(frame: CGRect(x: bounds.size.width - globalInset * 3, y: bounds.size.height - globalInset * 3, width: globalInset * 2, height: globalInset * 2))
         rotateView?.autoresizingMask = [.flexibleLeftMargin, .flexibleTopMargin]
         rotateView?.backgroundColor = UIColor.clear
         rotateView?.clipsToBounds = true
