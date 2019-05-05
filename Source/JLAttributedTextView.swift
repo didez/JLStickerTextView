@@ -10,7 +10,11 @@ import UIKit
 
 public class JLAttributedTextView: UITextView {
     public private(set) var textAttributes: [NSAttributedString.Key: AnyObject] = [:]
-
+    
+    public override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        return false
+    }
+    
     // MARK: -
 
     // MARK: Alpha
