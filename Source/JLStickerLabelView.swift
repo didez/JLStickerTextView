@@ -294,7 +294,9 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
             delegate?.labelViewDidSelected?(self)
         }
         
-        labelTextView?.endEditing(true)
+        if labelTextView?.isFirstResponder == true {
+            self.endEditing(true)
+        }
         
         touchLocation = recognizer.location(in: superview)
 
