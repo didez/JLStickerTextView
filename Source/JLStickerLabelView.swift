@@ -262,6 +262,7 @@ extension JLStickerLabelView: UITextViewDelegate {
             }
         }
     }
+    
 }
 
 // MARK: -
@@ -323,6 +324,10 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
     
     @objc func pinchViewPanGesture(_ recognizer: UIPinchGestureRecognizer) {
         
+        if labelTextView?.isFirstResponder == true {
+            self.endEditing(true)
+        }
+        
         let scale = recognizer.scale
         
         switch recognizer.state {
@@ -356,6 +361,9 @@ extension JLStickerLabelView: UIGestureRecognizerDelegate, adjustFontSizeToFillR
     }
     
     @objc func rotateViewPanGesture(_ recognizer: UIPanGestureRecognizer) {
+        if labelTextView?.isFirstResponder == true {
+            self.endEditing(true)
+        }
         touchLocation = recognizer.location(in: superview)
 
         let center = CalculateFunctions.CGRectGetCenter(frame)
